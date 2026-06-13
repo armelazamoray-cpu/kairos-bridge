@@ -611,7 +611,7 @@ export default function KairosBridge() {
 
     try {
       const historial = nuevosMensajes.map(m => ({ role: m.rol === "usuario" ? "user" : "assistant", content: m.texto }));
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/chat", {
         method:"POST", headers:{ "Content-Type":"application/json" },
         body:JSON.stringify({ model:"claude-sonnet-4-6", max_tokens:1000, system:perfilSel.systemPrompt, messages:historial }),
       });
@@ -633,7 +633,7 @@ export default function KairosBridge() {
     setCargando(true);
     const historialTexto = mensajes.map(m => `${m.rol === "usuario" ? "EVANGELIZADOR" : perfilSel.nombre}: ${m.texto}`).join("\n");
     try {
-      const res = await fetch("https://api.anthropic.com/v1/messages", {
+      const res = await fetch("/api/chat", {
         method:"POST", headers:{ "Content-Type":"application/json" },
         body:JSON.stringify({
           model:"claude-sonnet-4-6", max_tokens:1000,
